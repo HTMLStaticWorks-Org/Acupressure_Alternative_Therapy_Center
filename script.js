@@ -16,4 +16,14 @@
  document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const v=btn.dataset.filter;document.querySelectorAll('[data-category]').forEach(el=>el.hidden=v!=='all'&&el.dataset.category!==v)}));
  function showToast(msg){let t=document.querySelector('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.append(t)}t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3800)}
  document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',()=>showToast(b.dataset.toast)));
+ const backToTop=document.querySelector('.back-to-top');
+ if(backToTop){
+  const toggleBackToTop=()=>backToTop.classList.toggle('show',window.scrollY>260);
+  window.addEventListener('scroll',toggleBackToTop,{passive:true});
+  toggleBackToTop();
+  backToTop.addEventListener('click',()=>{
+   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+  });
+ }
 })();
